@@ -1,20 +1,29 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { MdAdd } from "react-icons/md";
+import axios from "axios";
 
 const TodoInsert = ({ onInsert }) => {
   const [value, setValue] = useState("");
   const onChange = useCallback(e => {
     setValue(e.target.value);
   }, []);
-  const onClick = useCallback(
-    e => {
-      onInsert(value);
-      setValue("");
-      e.preventDefault();
-    },
-    [onInsert, value]
-  );
+  const onClick = e => {
+    if (value === "") {
+      alert("할일 입력해");
+      return 0;
+    }
+    axios({
+      url: "http://127.0.0.1:8080",
+      method: "POST",
+      data: {
+        todo: value
+      }
+    });
+    onInsert(value);
+    setValue("");
+    e.preventDefault();
+  };
 
   const onKeyPress = e => {
     if (e.key === "Enter") {

@@ -1,31 +1,24 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 import TodoTemplate from "./components/todotemplate/index";
 import TodoInsert from "./components/todoinsert/index";
 import TodoList from "./components/totdolist";
+import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "리액트 공부하기",
-      checked: true
-    },
-    {
-      id: 2,
-      text: "컴포넌트 스타일링 해보기",
-      checked: true
-    },
-    {
-      id: 3,
-      text: "일정 관리 앱 만들어보기",
-      checked: false
-    }
-  ]);
-
+  const [todos, setTodos] = useState([]);
   const [nextId, setNextId] = useState(4);
 
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8080").then(res => {
+      console.log(res.data.result);
+      setTodos(res.data.result);
+    });
+    return () => {
+      console.log("cleanup");
+    };
+  }, []);
   const onRemove = id => {
     setTodos(todos.filter(todo => todo.id !== id));
   };

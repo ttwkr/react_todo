@@ -7,11 +7,12 @@ import {
 } from "react-icons/md";
 
 const TodoListItem = ({ todo, onRemove, onToggle }) => {
+  console.log(todo);
   return (
     <TodoListItemStyled>
       <Checkbox isTrue={todo.checked} onClick={() => onToggle(todo.id)}>
         {todo.checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-        <Text isTrue={todo.checked}>{todo.text}</Text>
+        <Text isTrue={todo.checked}>{todo.todo}</Text>
       </Checkbox>
       <Remove onClick={() => onRemove(todo.id)}>
         <MdRemoveCircleOutline></MdRemoveCircleOutline>
