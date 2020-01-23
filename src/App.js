@@ -8,11 +8,9 @@ import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [nextId, setNextId] = useState(4);
 
   useEffect(() => {
     axios.get("http://127.0.0.1:8080").then(res => {
-      console.log(res.data.result);
       setTodos(res.data.result);
     });
     return () => {
@@ -21,27 +19,28 @@ function App() {
   }, []);
   const onRemove = id => {
     setTodos(todos.filter(todo => todo.id !== id));
+    axios.post(`http://127.0.0.1:8080/delete/${id}`);
   };
 
   const onInsert = useCallback(
     text => {
       const todo = {
-        id: nextId,
+        id: todos[todos.length].id + 1,
         text,
-        checked: false
+        check: false
       };
       setTodos(todos.concat(todo));
-      setNextId(nextId + 1);
     },
-    [nextId, todos]
+    [todos]
   );
 
-  const onToggle = id => {
+  const onToggle = (id, check) => {
     setTodos(
       todos.map(todo =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
+        todo.id === id ? { ...todo, check: !todo.check } : todo
       )
     );
+    axios.post(`http://127.0.0.1:8080/${id}`, { check: !check });
   };
   return (
     <>

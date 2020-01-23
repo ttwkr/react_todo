@@ -4,7 +4,7 @@ import styled from "styled-components";
 const TodoTemplate = ({ children }) => {
   return (
     <TodoTemplateStyle>
-      <AppTitle>일정관리</AppTitle>
+      <AppTitle>너와 나의 연결고리</AppTitle>
       <Content>{children}</Content>
     </TodoTemplateStyle>
   );

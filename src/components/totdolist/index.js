@@ -3,7 +3,6 @@ import styled from "styled-components";
 import TodoListItem from "../todolistitem/index";
 
 const TodoList = ({ todos, onRemove, onToggle }) => {
-  console.log(todos);
   return (
     <TodoListStyled>
       {todos.map(todo => {

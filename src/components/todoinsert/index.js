@@ -17,7 +17,8 @@ const TodoInsert = ({ onInsert }) => {
       url: "http://127.0.0.1:8080",
       method: "POST",
       data: {
-        todo: value
+        todo: value,
+        check: false
       }
     });
     onInsert(value);
