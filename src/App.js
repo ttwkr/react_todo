@@ -9,24 +9,26 @@ import "./App.css";
 function App() {
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    axios.get("http://127.0.0.1:8080").then(res => {
+  const getList = async () => {
+    await axios.get("http://52.78.179.234:8080").then(res => {
       setTodos(res.data.result);
+      console.log(res.data.result);
     });
-    return () => {
-      console.log("cleanup");
-    };
+  };
+
+  useEffect(() => {
+    getList();
   }, []);
   const onRemove = id => {
     setTodos(todos.filter(todo => todo.id !== id));
-    axios.post(`http://127.0.0.1:8080/delete/${id}`);
+    axios.post(`http://52.78.179.234:8080/delete/${id}`);
   };
 
   const onInsert = useCallback(
     text => {
       const todo = {
-        id: todos[todos.length].id + 1,
-        text,
+        id: todos.length,
+        todo: text,
         check: false
       };
       setTodos(todos.concat(todo));
@@ -40,7 +42,7 @@ function App() {
         todo.id === id ? { ...todo, check: !todo.check } : todo
       )
     );
-    axios.post(`http://127.0.0.1:8080/${id}`, { check: !check });
+    axios.post(`http://52.78.179.234:8080/${id}`, { check: !check });
   };
   return (
     <>

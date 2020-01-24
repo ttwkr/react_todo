@@ -9,12 +9,13 @@ const TodoInsert = ({ onInsert }) => {
     setValue(e.target.value);
   }, []);
   const onClick = e => {
+    e.preventDefault();
     if (value === "") {
       alert("할일 입력해");
       return 0;
     }
     axios({
-      url: "http://127.0.0.1:8080",
+      url: "http://52.78.179.234:8080",
       method: "POST",
       data: {
         todo: value,
@@ -23,12 +24,11 @@ const TodoInsert = ({ onInsert }) => {
     });
     onInsert(value);
     setValue("");
-    e.preventDefault();
   };
 
   const onKeyPress = e => {
     if (e.key === "Enter") {
-      onClick();
+      onClick(e);
     }
   };
   return (
@@ -62,6 +62,7 @@ const TodoInput = styled.input`
   padding: 0.5rem;
   font-size: 1.125rem;
   line-height: 1.5;
+  color: white;
   &::placeholder {
     color: #dee2e6;
   }

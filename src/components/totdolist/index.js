@@ -6,6 +6,7 @@ const TodoList = ({ todos, onRemove, onToggle }) => {
   return (
     <TodoListStyled>
       {todos.map(todo => {
+        console.log(todo);
         return (
           <TodoListItem
             key={todo.id}

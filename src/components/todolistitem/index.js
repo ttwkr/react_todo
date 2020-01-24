@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 
 const TodoListItem = ({ todo, onRemove, onToggle }) => {
+  console.log(todo);
   return (
     <TodoListItemStyled>
       <Checkbox
