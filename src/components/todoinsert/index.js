@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { MdAdd } from "react-icons/md";
 import axios from "axios";
+import dns from "../../dns";
 
 const TodoInsert = ({ onInsert }) => {
   const [value, setValue] = useState("");
@@ -15,7 +16,7 @@ const TodoInsert = ({ onInsert }) => {
       return 0;
     }
     axios({
-      url: "http://52.78.179.234:8080",
+      url: dns,
       method: "POST",
       data: {
         todo: value,

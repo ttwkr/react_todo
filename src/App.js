@@ -4,15 +4,15 @@ import TodoTemplate from "./components/todotemplate/index";
 import TodoInsert from "./components/todoinsert/index";
 import TodoList from "./components/totdolist";
 import axios from "axios";
+import dns from "./dns";
 import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
   const getList = async () => {
-    await axios.get("http://52.78.179.234:8080").then(res => {
+    await axios.get(dns).then(res => {
       setTodos(res.data.result);
-      console.log(res.data.result);
     });
   };
 
@@ -21,7 +21,7 @@ function App() {
   }, []);
   const onRemove = id => {
     setTodos(todos.filter(todo => todo.id !== id));
-    axios.post(`http://52.78.179.234:8080/delete/${id}`);
+    axios.post(`${dns}/delete/${id}`);
   };
 
   const onInsert = useCallback(
@@ -42,7 +42,7 @@ function App() {
         todo.id === id ? { ...todo, check: !todo.check } : todo
       )
     );
-    axios.post(`http://52.78.179.234:8080/${id}`, { check: !check });
+    axios.post(`${dns}/${id}`, { check: !check });
   };
   return (
     <>
